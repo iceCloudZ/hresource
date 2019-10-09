@@ -26,7 +26,7 @@ pipeline {
             docker.image("${ARTIFACT_IMAGE}:latest").push()
           }
         }
-
+      }
     }
     
   }
