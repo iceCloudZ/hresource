@@ -1,4 +1,6 @@
 spring:
+  application:
+    name : hresource
   datasource:
     url : jdbc:postgresql://111.231.54.43:5432/postgres
     username : postgres
