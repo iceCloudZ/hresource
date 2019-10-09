@@ -4,7 +4,7 @@ pipeline {
     stage('检出') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]], 
-                            userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
+                                    userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
       }
     }
     stage('构建') {
@@ -44,5 +44,13 @@ pipeline {
         echo '部署完成'
       }
     }
+  }
+  environment {
+    ENTERPRISE = 'jiujiuhouse'
+    PROJECT = 'hresource'
+    ARTIFACT = 'hresource'
+    CODE_DEPOT = 'hresource'
+    ARTIFACT_BASE = "${ENTERPRISE}-docker.pkg.coding.net"
+    ARTIFACT_IMAGE = "${ARTIFACT_BASE}/${PROJECT}/${ARTIFACT}/${CODE_DEPOT}"
   }
 }
