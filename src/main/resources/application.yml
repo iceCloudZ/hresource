@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url : jdbc:postgresql://111.231.54.43:5432/postgres
+    username : postgres
+    password : postgres
+    driverClassName : org.postgresql.Driver
+    initialization-mode : always
+  jpa:
+    show-sql : true
+    hibernate:
+      ddl-auto : create
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
