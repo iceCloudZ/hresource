@@ -27,7 +27,7 @@ public class HouseController {
     @GetMapping("/search")
     public JsonResult search() {
         HouseEntity houseEntity = new HouseEntity();
-        houseEntity.setCityId(10);
+        houseEntity.setCityId(15);
         houseEntity.setCommunityId(11);
         return JsonResult.create().addResult(houseRepository.save(houseEntity));
     }
