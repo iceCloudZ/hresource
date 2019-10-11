@@ -75,7 +75,9 @@ public class HouseEntity implements Serializable {
 
     @ApiModelProperty("X厅")
     @Column(name = "hall_count")
-    private Integer hall_Count;
+    private Integer hallCount;
 
-
+    @ApiModelProperty("X卫")
+    @Column(name = "bath_count")
+    private Integer bathCount;
 }
