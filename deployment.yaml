@@ -1,0 +1,101 @@
+apiVersion: apps/v1beta2
+kind: Service
+metadata:
+---
+apiVersion: apps/v1beta2
+kind: Pod
+metadata:
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+    field.cattle.io/creatorId: u-nbbnv
+    field.cattle.io/publicEndpoints: '[{"port":8093,"protocol":"TCP","serviceName":"default:kotler-loadbalancer","allNodes":false}]'
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-default-hresource
+  name: hresource
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+#  selector:
+#    matchLabels:
+#      workload.user.cattle.io/workloadselector: deployment-default-hresource
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+#      annotations:
+#        cattle.io/timestamp: 2019-03-15T08:52:38Z
+#        field.cattle.io/ports: '[[{"containerPort":8081,"dnsName":"kotler-loadbalancer","kind":"LoadBalancer","name":"8081tcp80913","protocol":"TCP","sourcePort":8093}]]'
+#      labels:
+#        workload.user.cattle.io/workloadselector: deployment-default-kotler
+    spec:
+      containers:
+#      - env:
+#          - name: APOLLO_META
+#            value: http://106.15.155.174:8086
+#          - name: aliyun_logs_kotler
+#            value: /data/applogs/kotler/kotler.log
+#        - name: env
+#          value: fat
+#        - name: aliyun_logs_kotler
+#          value: /data/applogs/kotler/kotler.log
+#        - name: ZK_ADDRESS
+#          valueFrom:
+#            configMapKeyRef:
+#              name: configmap
+#              key: ZK_ADDRESS
+        image: jiujiuhouse-docker.pkg.coding.net/hresource/hresource/hresource:latest
+        imagePullPolicy: Always
+#        livenessProbe:
+#          failureThreshold: 3
+#          httpGet:
+#            path: /promotion/heartbeat
+#            port: 8081
+#            scheme: HTTP
+#          initialDelaySeconds: 60
+#          periodSeconds: 5
+#          successThreshold: 1
+#          timeoutSeconds: 3
+        name: hresource
+#        volumeMounts:
+#        - name: kotler-pv
+#          mountPath: /data/appdatas/sa
+#        - name: cat
+#          mountPath: /data/appdatas/cat
+        ports:
+        - containerPort: 8080
+          name: 8080tcp80913
+          protocol: TCP
+#        readinessProbe:
+#          failureThreshold: 3
+#          httpGet:
+#            path: /promotion/heartbeat
+#            port: 8080
+#            scheme: HTTP
+#          initialDelaySeconds: 60
+#          periodSeconds: 5
+#          successThreshold: 2
+#          timeoutSeconds: 3
+        resources:
+          requests:
+            memory: "1536Mi"
+            cpu: "100m"
+      volumes:
+#      - name: cat
+#        configMap:
+#          name: cat-config
+#      - name: kotler-pv
+#        persistentVolumeClaim:
+#          claimName: nas-for-kubernetes
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 120
