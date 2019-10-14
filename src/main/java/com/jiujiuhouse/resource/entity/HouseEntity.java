@@ -6,6 +6,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * @author zzh
+ */
 @Data
 @Entity
 @Table(name = "jj_house")
@@ -43,15 +46,15 @@ public class HouseEntity extends BaseEntity {
     private Integer price;
 
     public static enum Position {
-        EAST,
-        SOUTH,
-        WEST,
-        NORTH
+        东,
+        南,
+        西,
+        北
     }
 
     @ApiModelProperty("朝向")
     @Enumerated(EnumType.STRING)
-    private Position position = Position.SOUTH;
+    private Position position = Position.南;
 
     public static enum HouseStatus {
         NORMAL,
