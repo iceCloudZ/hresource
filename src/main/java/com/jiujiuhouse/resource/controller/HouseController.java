@@ -31,4 +31,13 @@ public class HouseController {
         houseEntity.setCommunityId(11);
         return JsonResult.create().addResult(houseRepository.save(houseEntity));
     }
+
+    @ApiOperation(value = "首页列表")
+    @GetMapping("/indexList")
+    public JsonResult indexList() {
+        HouseEntity houseEntity = new HouseEntity();
+        houseEntity.setCityId(15);
+        houseEntity.setCommunityId(11);
+        return JsonResult.create().addResult(houseRepository.findAll());
+    }
 }
