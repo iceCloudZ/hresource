@@ -1,19 +1,15 @@
 package com.jiujiuhouse.resource.entity;
 
+import com.jiujiuhouse.resource.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.hibernate.annotations.IndexColumn;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "jj_house")
-public class HouseEntity implements Serializable {
+public class HouseEntity extends BaseEntity {
 
     @Id
     @SequenceGenerator(sequenceName = "house_sequence", name = "seq")
@@ -47,10 +43,10 @@ public class HouseEntity implements Serializable {
     private Integer price;
 
     public static enum Position {
-        EAST,//东p
-        SOUTH,//南
-        WEST,//西
-        NORTH//北
+        EAST,
+        SOUTH,
+        WEST,
+        NORTH
     }
 
     @ApiModelProperty("朝向")
@@ -58,11 +54,16 @@ public class HouseEntity implements Serializable {
     private Position position = Position.SOUTH;
 
     public static enum HouseStatus {
-        NORMAL, // 正常
-        SELLING,//出售
-        RENTING,//出租
-        SELLED,//售出
-        RENTED//租出
+        NORMAL,
+        // 正常
+        SELLING,
+        //出售
+        RENTING,
+        //出租
+        SELLED,
+        //售出
+        RENTED
+        //租出
     }
 
     @ApiModelProperty("房屋状态")

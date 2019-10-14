@@ -1,7 +1,9 @@
 package com.jiujiuhouse.resource.controller;
 
+import com.jiujiuhouse.resource.entity.HouseDetailEntity;
 import com.jiujiuhouse.resource.entity.HouseEntity;
 import com.jiujiuhouse.resource.mvc.JsonResult;
+import com.jiujiuhouse.resource.repository.HouseDetailRepository;
 import com.jiujiuhouse.resource.repository.HouseRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,13 +25,14 @@ public class HouseController {
     @Autowired
     private HouseRepository houseRepository;
 
+    @Autowired
+    private HouseDetailRepository houseDetailRepository;
+
     @ApiOperation(value = "检索房源")
     @GetMapping("/search")
     public JsonResult search() {
-        HouseEntity houseEntity = new HouseEntity();
-        houseEntity.setCityId(15);
-        houseEntity.setCommunityId(11);
-        return JsonResult.create().addResult(houseRepository.save(houseEntity));
+        HouseDetailEntity houseDetailEntity = new HouseDetailEntity();
+        return JsonResult.create().addResult(houseDetailRepository.save(houseDetailEntity));
     }
 
     @ApiOperation(value = "首页列表")
