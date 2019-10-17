@@ -1,11 +1,10 @@
 pipeline {
   agent any
-  
   stages {
     stage('检出') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]], 
-                                                                                                    userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
+                                                                                                            userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
       }
     }
     stage('编译') {
@@ -17,17 +16,15 @@ pipeline {
       steps {
         sh "docker build -t ${ARTIFACT_IMAGE}:${env.GIT_BUILD_REF} ."
         sh "docker tag ${ARTIFACT_IMAGE}:${env.GIT_BUILD_REF} ${ARTIFACT_IMAGE}:latest"
+        sh "docker push ${ARTIFACT_IMAGE}:latest"
+        sh "docker push ${ARTIFACT_IMAGE}:${env.GIT_BUILD_REF}"
       }
     }
     stage('推送到制品库') {
       steps {
-        script {
-          docker.withRegistry("https://ccr.ccs.tencentyun.com/tsf_100000778480/hresource", "tke") {
-            docker.image("${TKE_REPO}:${env.GIT_BUILD_REF}").push()
-            docker.image("${TKE_REPO}:latest").push()
-          }
-        }
-
+        sh "docker login -u 100000778480 -p Zzh320281 ccr.ccs.tencentyun.com"
+		sh "docker tag ${TKE_REPO}:${env.GIT_BUILD_REF} ${TKE_REPO}:latest"
+        sh "sudo docker push ${TKE_REPO}:latest"
       }
     }
   }
