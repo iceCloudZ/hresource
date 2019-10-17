@@ -4,7 +4,7 @@ pipeline {
     stage('检出') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]], 
-                                                                                                                                                                                    userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
+                                                                                                                                                                                            userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
       }
     }
     stage('编译') {
@@ -14,16 +14,6 @@ pipeline {
     }
     stage('打包镜像') {
       steps {
-        sh "echo ${env.BUILD_NUMBER}"
-        sh "echo ${env.BUILD_ID}"
-        sh "echo ${env.BUILD_DISPLAY_NAME}"
-        sh "echo ${env.JOB_NAME}"
-        sh "echo ${env.BUILD_TAG}"
-        sh "echo ${env.EXECUTOR_NUMBER}"
-        sh "echo ${env.NODE_NAME}"
-        sh "echo ${env.NODE_LABELS}"
-
-
         sh "docker build -t ${TKE_REPO}:${env.GIT_BUILD_REF} ."
         sh "docker tag ${TKE_REPO}:${env.GIT_BUILD_REF} ${ARTIFACT_IMAGE}:latest"
       }
