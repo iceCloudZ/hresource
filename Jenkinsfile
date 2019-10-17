@@ -36,9 +36,7 @@ pipeline {
         	sh "sudo docker push ${TKE_REPO}:latest"
         }
 
-      }
-    }
-    
+      }    
     
   }
   environment {
