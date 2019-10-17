@@ -1,17 +1,10 @@
 pipeline {
-  agent 
-  {
-    docker {
-          image 'ccr.ccs.tencentyun.com/tsf_100000778480/hresource'
-          registryUrl 'ccr.ccs.tencentyun.com'
-          registryCredentialsId '100000778480'
-      }
-  }
+  agent any
   stages {
     stage('检出') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]], 
-                                                                            userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
+                                                                                    userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
       }
     }
     stage('编译') {
@@ -29,14 +22,13 @@ pipeline {
       steps {
         script {
           docker.withRegistry("https://ccr.ccs.tencentyun.com/tsf_100000778480/hresource", "100000778480") {
-            docker.image("${ARTIFACT_IMAGE}:${env.GIT_BUILD_REF}").push()
-            docker.image("${ARTIFACT_IMAGE}:latest").push()
+            docker.image("${TKE_REPO}:${env.GIT_BUILD_REF}").push()
+            docker.image("${TKE_REPO}:latest").push()
           }
         }
 
       }
     }
-
   }
   environment {
     ENTERPRISE = 'jiujiuhouse'
