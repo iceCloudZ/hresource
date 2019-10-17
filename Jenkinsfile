@@ -4,7 +4,7 @@ pipeline {
     stage('检出') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]], 
-                                                                                                                    userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
+                                                                                                                            userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
       }
     }
     stage('编译') {
@@ -14,10 +14,8 @@ pipeline {
     }
     stage('打包镜像') {
       steps {
-        sh "docker build -t ${ARTIFACT_IMAGE}:${env.GIT_BUILD_REF} ."
-        sh "docker tag ${ARTIFACT_IMAGE}:${env.GIT_BUILD_REF} ${ARTIFACT_IMAGE}:latest"
-      //  sh "docker push ${ARTIFACT_IMAGE}:latest"
-      //  sh "docker push ${ARTIFACT_IMAGE}:${env.GIT_BUILD_REF}"
+        sh "docker build -t ${TKE_REPO}:${env.GIT_BUILD_REF} ."
+        sh "docker tag ${TKE_REPO}:${env.GIT_BUILD_REF} ${ARTIFACT_IMAGE}:latest"
       }
     }
     stage('推送到制品库') {
