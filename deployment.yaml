@@ -1,30 +1,28 @@
 apiVersion: apps/v1beta2
-kind: Service
-metadata:
----
-apiVersion: apps/v1beta2
-kind: Pod
-metadata:
----
-apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "4"
-    field.cattle.io/creatorId: u-nbbnv
-    field.cattle.io/publicEndpoints: '[{"port":8093,"protocol":"TCP","serviceName":"default:kotler-loadbalancer","allNodes":false}]'
+    deployment.kubernetes.io/revision: "14"
+    description: 用户服务
+    field.cattle.io/publicEndpoints: '[{"addresses":["172.17.0.9"],"port":8081,"protocol":"TCP","serviceName":"default:huser","allNodes":false},{"addresses":["129.211.156.93"],"port":80,"protocol":"HTTP","serviceName":"default:huser","ingressName":"default:house-l7-lb","path":"/huser/","allNodes":false},{"addresses":["129.211.156.93"],"port":443,"protocol":"HTTPS","serviceName":"default:huser","ingressName":"default:house-l7-lb","path":"/huser/","allNodes":false}]'
+  creationTimestamp: "2019-10-17T15:05:26Z"
+  generation: 22
   labels:
-    cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: deployment-default-hresource
-  name: hresource
+    k8s-app: huser
+    qcloud-app: huser
+  name: huser
   namespace: default
+  resourceVersion: "4012069170"
+  selfLink: /apis/apps/v1beta2/namespaces/default/deployments/huser
+  uid: 8ce22233-f0ef-11e9-b536-46f61fe3c810
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
-#  selector:
-#    matchLabels:
-#      workload.user.cattle.io/workloadselector: deployment-default-hresource
+  selector:
+    matchLabels:
+      k8s-app: huser
+      qcloud-app: huser
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -32,70 +30,92 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-#      annotations:
-#        cattle.io/timestamp: 2019-03-15T08:52:38Z
-#        field.cattle.io/ports: '[[{"containerPort":8081,"dnsName":"kotler-loadbalancer","kind":"LoadBalancer","name":"8081tcp80913","protocol":"TCP","sourcePort":8093}]]'
-#      labels:
-#        workload.user.cattle.io/workloadselector: deployment-default-kotler
+      annotations:
+        cattle.io/timestamp: "2019-10-28T12:27:06Z"
+        ccr.trigger/update: "1572264403"
+      creationTimestamp: null
+      labels:
+        k8s-app: huser
+        qcloud-app: huser
+        qcloud-redeploy-timestamp: "1571734728987"
     spec:
       containers:
-#      - env:
-#          - name: APOLLO_META
-#            value: http://106.15.155.174:8086
-#          - name: aliyun_logs_kotler
-#            value: /data/applogs/kotler/kotler.log
-#        - name: env
-#          value: fat
-#        - name: aliyun_logs_kotler
-#          value: /data/applogs/kotler/kotler.log
-#        - name: ZK_ADDRESS
-#          valueFrom:
-#            configMapKeyRef:
-#              name: configmap
-#              key: ZK_ADDRESS
-        image: jiujiuhouse-docker.pkg.coding.net/hresource/hresource/hresource:latest
-        imagePullPolicy: Always
-#        livenessProbe:
-#          failureThreshold: 3
-#          httpGet:
-#            path: /promotion/heartbeat
-#            port: 8081
-#            scheme: HTTP
-#          initialDelaySeconds: 60
-#          periodSeconds: 5
-#          successThreshold: 1
-#          timeoutSeconds: 3
-        name: hresource
-#        volumeMounts:
-#        - name: kotler-pv
-#          mountPath: /data/appdatas/sa
-#        - name: cat
-#          mountPath: /data/appdatas/cat
-        ports:
-        - containerPort: 8080
-          name: 8080tcp80913
-          protocol: TCP
-#        readinessProbe:
-#          failureThreshold: 3
-#          httpGet:
-#            path: /promotion/heartbeat
-#            port: 8080
-#            scheme: HTTP
-#          initialDelaySeconds: 60
-#          periodSeconds: 5
-#          successThreshold: 2
-#          timeoutSeconds: 3
-        resources:
-          requests:
-            memory: "1536Mi"
-            cpu: "100m"
-      volumes:
-#      - name: cat
-#        configMap:
-#          name: cat-config
-#      - name: kotler-pv
-#        persistentVolumeClaim:
-#          claimName: nas-for-kubernetes
+        - env:
+            - name: CA_CERTIFICATES_JAVA_VERSION
+              value: "20140324"
+            - name: JAVA_DEBIAN_VERSION
+              value: 8u111-b14-2~bpo8+1
+            - name: JAVA_HOME
+              value: /usr/lib/jvm/java-8-openjdk-amd64
+            - name: JAVA_VERSION
+              value: 8u111
+            - name: LANG
+              value: C.UTF-8
+            - name: PATH
+              value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - name: TZ
+              value: Asia/Shanghai
+          image: ccr.ccs.tencentyun.com/tsf_100000778480/huser:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /hresource/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          name: hresource
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /hresource/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 2
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            capabilities: {}
+            privileged: false
+            procMount: Default
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          workingDir: /app
       dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: qcloudregistrykey
+        - name: tencenthubkey
       restartPolicy: Always
-      terminationGracePeriodSeconds: 120
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: "2019-10-28T12:27:42Z"
+      lastUpdateTime: "2019-10-28T12:27:42Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2019-10-17T15:05:26Z"
+      lastUpdateTime: "2019-10-28T12:30:34Z"
+      message: ReplicaSet "huser-9c9f97769" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+  observedGeneration: 22
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
