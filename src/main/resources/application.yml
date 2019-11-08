@@ -1,7 +1,7 @@
 server:
   port: 8080
-  servlet:
-    context-path: /hresource
+#  servlet:
+#    context-path: /hresource
 spring:
   application:
     name : hresource
@@ -11,6 +11,9 @@ spring:
     password : postgres
     driverClassName : org.postgresql.Driver
     initialization-mode : always
+  data:
+    rest:
+      base-path: /hresource
   jpa:
     show-sql : true
     hibernate:

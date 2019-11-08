@@ -1,7 +1,12 @@
 package com.jiujiuhouse.resource.repository;
 
-import com.jiujiuhouse.resource.entity.HouseDetailEntity;
+import com.jiujiuhouse.resource.entity.HouseDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-public interface HouseDetailRepository extends JpaRepository<HouseDetailEntity, Long> {
+/**
+ * @author zihao.zhao
+ */
+@RepositoryRestResource
+public interface HouseDetailRepository extends JpaRepository<HouseDetail, Long> {
 }

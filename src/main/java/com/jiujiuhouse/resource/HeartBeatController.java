@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 public class HeartBeatController {
 
     @PostConstruct
-    public void init(){
+    public void init() {
         log.info("健康检查服务初始化.");
     }
 

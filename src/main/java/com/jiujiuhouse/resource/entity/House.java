@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "jj_house")
-public class HouseEntity extends BaseEntity {
+public class House extends BaseEntity {
 
     @Id
     @SequenceGenerator(sequenceName = "house_sequence", name = "seq")

@@ -1,6 +1,6 @@
 package com.jiujiuhouse.resource.service;
 
-import com.jiujiuhouse.resource.entity.HouseEntity;
+import com.jiujiuhouse.resource.entity.House;
 import com.jiujiuhouse.resource.repository.HouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ public class HouseService {
     @Autowired
     private HouseRepository houseRepository;
 
-    public Page<HouseEntity> getList(Integer pageSize, Integer pageNumber) {
+    public Page<House> getList(Integer pageSize, Integer pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber == null ? 0 : pageNumber,
                 pageSize == null ? 10 : pageSize, Sort.Direction.ASC, "id");
         return houseRepository.findAll(pageable);
