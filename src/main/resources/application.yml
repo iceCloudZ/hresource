@@ -4,21 +4,22 @@ server:
     context-path: /hresource
 spring:
   application:
-    name : hresource
+    name: hresource
   datasource:
-    url : jdbc:postgresql://111.231.54.43:5432/postgres
-    username : postgres
-    password : postgres
-    driverClassName : org.postgresql.Driver
-    initialization-mode : always
-#  data:
-#    rest:
-#      base-path: /hresource
+    url: jdbc:postgresql://111.231.54.43:5432/postgres
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
+  #  data:
+  #    rest:
+  #      base-path: /hresource
   jpa:
-    show-sql : true
+    show-sql: true
     hibernate:
-      ddl-auto : create
+      ddl-auto: create
     properties:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
