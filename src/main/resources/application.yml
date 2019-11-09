@@ -6,7 +6,7 @@ spring:
   application:
     name: hresource
   datasource:
-    url: jdbc:postgresql://111.231.54.43:5432/postgres
+    url: jdbc:postgresql://172.18.0.5:5432/postgres
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
