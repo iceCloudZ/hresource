@@ -11,9 +11,6 @@ spring:
     password: postgres
     driverClassName: org.postgresql.Driver
     initialization-mode: always
-  #  data:
-  #    rest:
-  #      base-path: /hresource
   jpa:
     show-sql: true
     hibernate:
@@ -23,3 +20,7 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
