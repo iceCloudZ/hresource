@@ -1,6 +1,7 @@
 package com.jiujiuhouse.resource;
 
 import com.alibaba.fastjson.JSON;
+import com.jiujiuhouse.resource.feign.HuserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -24,9 +25,14 @@ public class HeartBeatController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Autowired
+    private HuserService huserService;
+
+    private final String hostName = System.getenv("HOSTNAME");
+
     @PostConstruct
     public void init() {
-        log.info("健康检查服务初始化.");
+        log.info("健康检查服务初始化.{}", hostName);
     }
 
     @GetMapping("/health")
@@ -57,4 +63,14 @@ public class HeartBeatController {
                 + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
+    /**
+     * 测试ribbon调用
+     *
+     * @return
+     */
+    @RequestMapping("/test")
+    public String test() {
+        log.info("hostname:{}", this.hostName);
+        return huserService.getProfiles().toJSONString();
+    }
 }
