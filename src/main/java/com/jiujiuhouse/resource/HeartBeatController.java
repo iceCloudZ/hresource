@@ -1,7 +1,8 @@
 package com.jiujiuhouse.resource;
 
 import com.alibaba.fastjson.JSON;
-import com.jiujiuhouse.resource.feign.HuserService;
+import com.alibaba.fastjson.JSONObject;
+import com.jiujiuhouse.resource.feign.HuserClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -26,7 +27,7 @@ public class HeartBeatController {
     private DiscoveryClient discoveryClient;
 
     @Autowired
-    private HuserService huserService;
+    private HuserClient huserClient;
 
     private final String hostName = System.getenv("HOSTNAME");
 
@@ -64,13 +65,25 @@ public class HeartBeatController {
     }
 
     /**
-     * 测试ribbon调用
+     * 测试openfeign调用
      *
      * @return
      */
     @RequestMapping("/test")
     public String test() {
         log.info("hostname:{}", this.hostName);
-        return huserService.getProfiles().toJSONString();
+        return huserClient.getTested();
+    }
+
+
+    /**
+     * 测试openfeign调用
+     *
+     * @return
+     */
+    @RequestMapping("/tested")
+    public String tested() {
+        log.info("hostname:{}", this.hostName);
+        return "hresource被调用了" + "hostname:" + this.hostName;
     }
 }
