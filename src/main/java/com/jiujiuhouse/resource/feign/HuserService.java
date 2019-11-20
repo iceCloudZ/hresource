@@ -14,7 +14,7 @@ public class HuserService {
         this.restTemplate = restTemplate;
     }
 
-    @HystrixCommand(fallbackMethod = "getFallbackName", commandProperties = {
+    @HystrixCommand(fallbackMethod = "getFallbackProfiles", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
     })
     public JSONObject getProfiles() {
