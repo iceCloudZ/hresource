@@ -28,15 +28,20 @@
         <!--	spring cloud kubernetes	-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-kubernetes-core</artifactId>
+            <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
             <version>1.0.4.RELEASE</version>
         </dependency>
-
+        <!--	spring cloud ribbon 	-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-kubernetes-discovery</artifactId>
-            <version>1.0.4.RELEASE</version>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
+        <!--	spring cloud hystrix 	-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
         <!--    spring data rest    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,19 +56,6 @@
             <artifactId>hal-explorer</artifactId>
             <version>0.11.0</version>
         </dependency>
-
-
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-
-
 
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>-->
