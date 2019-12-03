@@ -19,6 +19,12 @@ public class House extends BaseEntity {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "title", length = 128)
+    private String title;
+
+    @Column(name = "labels", length = 128)
+    private String labels;
+
     @Column(name = "city_id")
     private Integer cityId;
 
