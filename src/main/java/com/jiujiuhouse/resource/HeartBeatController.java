@@ -1,7 +1,6 @@
 package com.jiujiuhouse.resource;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.jiujiuhouse.resource.feign.HuserClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
