@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class House extends BaseEntity {
 
     @Id
-    @SequenceGenerator(sequenceName = "house_sequence", name = "seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+//    @SequenceGenerator(sequenceName = "house_sequence", name = "seq")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "id")
     private Integer id;
 

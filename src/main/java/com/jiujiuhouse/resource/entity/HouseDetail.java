@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Table(name = "jj_house_detail")
 public class HouseDetail  extends BaseEntity {
     @Id
-    @SequenceGenerator(sequenceName = "house_detail_sequence", name = "seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+//    @SequenceGenerator(sequenceName = "house_detail_sequence", name = "seq")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "id")
     private Integer id;
 }
