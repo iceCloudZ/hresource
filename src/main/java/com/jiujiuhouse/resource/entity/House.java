@@ -50,7 +50,7 @@ public class House extends BaseEntity {
     @Column(name = "price")
     private Integer price;
 
-    public static enum Position {
+    public enum Position {
         东,
         南,
         西,
@@ -61,7 +61,7 @@ public class House extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Position position = Position.南;
 
-    public static enum HouseStatus {
+    public enum HouseStatus {
         NORMAL,
         // 正常
         SELLING,
