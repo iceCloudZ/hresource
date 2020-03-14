@@ -4,7 +4,7 @@ spring:
   application:
     name: hresource
   datasource:
-    url: jdbc:mysql://sh-cynosdbmysql-grp-lpvk70oq.sql.tencentcdb.com:21186/house
+    url: jdbc:mysql://sh-cynosdbmysql-grp-lpvk70oq.sql.tencentcdb.com:21186/house?useUnicode=true&characterEncoding=utf-8
     username: root
     password: Zzh320281
     driverClassName: com.mysql.jdbc.Driver
