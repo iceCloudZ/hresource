@@ -15,6 +15,7 @@ public class HouseDetail  extends BaseEntity {
     @Id
 //    @SequenceGenerator(sequenceName = "house_detail_sequence", name = "seq")
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 }
