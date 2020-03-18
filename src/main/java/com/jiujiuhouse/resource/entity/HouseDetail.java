@@ -35,9 +35,6 @@ public class HouseDetail  extends BaseEntity {
     @Column(name = "location_floor", length = 2)
     private Integer locationFloor;  //所在楼层
 
-    @Column(name = "direction")
-    private String direction;   //  朝向:东南西北,东南,东北,西南,西北
-
     @Column(name = "elevator")
     private boolean elevator;   //有无电梯
 
