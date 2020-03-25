@@ -4,20 +4,20 @@ spring:
   application:
     name: hresource
   datasource:
-    url: jdbc:postgresql://172.18.0.5:5432/postgres
-    username: postgres
-    password: postgres
-    driverClassName: org.postgresql.Driver
+    url: jdbc:mysql://sh-cynosdbmysql-grp-lpvk70oq.sql.tencentcdb.com:21186/house?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: Zzh320281
+    driverClassName: com.mysql.jdbc.Driver
     initialization-mode: always
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        temp:
-          use_jdbc_metadata_defaults: false
-        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+#    properties:
+#      hibernate:
+#        temp:
+#          use_jdbc_metadata_defaults: false
+#        dialect: org.hibernate.dialect.PostgreSQL95Dialect
   cloud:
     kubernetes:
       discovery:
